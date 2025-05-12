@@ -104,8 +104,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'webstudy_db_info', 
         'USER': 'root',
-        'PASSWORD': 'dotrungquan183@', 
-        'HOST': 'localhost',
+        'PASSWORD': 'Hoang1422005@', 
+        'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4'

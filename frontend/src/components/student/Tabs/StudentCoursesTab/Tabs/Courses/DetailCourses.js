@@ -135,8 +135,9 @@ const StudentDetailCourses = () => {
       }
   
       const courseDetail = await detailRes.json();
+      const fee = parseFloat(courseDetail.fee);
   
-      if (parseFloat(courseDetail.fee) === 0) {
+      const registerCourse = async () => {
         const endpoint = `${BASE_URL}/api/student/student_courses/student_registrycourses/${course.id}/`;
   
         const response = await fetch(endpoint, {
@@ -151,16 +152,31 @@ const StudentDetailCourses = () => {
         alert(result.message || "Đăng ký thành công!");
         setIsRegistered(true);
         setTimeout(() => window.location.reload(), 1000);
+      };
+  
+      if (fee === 0) {
+        // Học phí = 0 -> đăng ký ngay
+        await registerCourse();
       } else {
+        // Học phí > 0 -> hiển thị thông tin thanh toán
         const paymentNote = `DANGKY_${course.id}_${userId}`;
         setPaymentContent(paymentNote);
         setShowPayment(true);
+  
+        // Đợi 2 phút trước khi gửi POST
+        setTimeout(() => {
+          registerCourse().catch((error) => {
+            console.error("Lỗi khi đăng ký sau chờ:", error.message);
+            alert(error.message || "Đăng ký thất bại sau khi thanh toán.");
+          });
+        }, 2 * 60 * 1000); // 2 phút
       }
     } catch (error) {
       console.error("Lỗi khi đăng ký:", error.message);
       alert(error.message || "Đăng ký thất bại.");
     }
   };
+  
   
   
   const toggleChapter = (chapterId) => {
