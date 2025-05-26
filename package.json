@@ -1,9 +1,14 @@
 {
+  "homepage": "https://HuyHoang7-Kar.github.io/Web_study",
   "dependencies": {
     "jwt-decode": "^4.0.0",
     "katex": "^0.16.21",
     "mathjax": "^3.2.2",
     "react-quill": "^2.0.0",
     "react-select": "^5.10.1"
+  },
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }
